@@ -31,6 +31,17 @@ export const ViewerPDF = ({ pathPDF }) => {
     changePage(1);
   }
 
+  const MyDoc = (
+    <Document
+      file={samplePDF}
+      onLoadSuccess={onDocumentLoadSuccess}
+      onPassword={(callback) => {
+        callback("123456");
+      }}>
+      <Page pageNumber={pageNumber} />
+    </Document>
+  );
+
   if (samplePDF) {
     return (
       <>
@@ -38,15 +49,8 @@ export const ViewerPDF = ({ pathPDF }) => {
           file={samplePDF}
           onLoadSuccess={onDocumentLoadSuccess}
           onPassword={(callback) => {
-            const password = prompt("enter password");
-            if (password === "123456") {
-              callback("123456");
-            } else {
-              alert("password incorrect");
-              return;
-            }
-          }}
-        >
+            callback("123456");
+          }}>
           <Page pageNumber={pageNumber} />
         </Document>
         <div className="pagenation-pdf">
@@ -59,8 +63,7 @@ export const ViewerPDF = ({ pathPDF }) => {
             variant="contained"
             color="primary"
             disabled={pageNumber <= 1}
-            onClick={previousPage}
-          >
+            onClick={previousPage}>
             PrevPage
           </Button>
 
@@ -69,8 +72,7 @@ export const ViewerPDF = ({ pathPDF }) => {
             variant="contained"
             color="primary"
             disabled={pageNumber >= numPages}
-            onClick={nextPage}
-          >
+            onClick={nextPage}>
             NextPage
           </Button>
         </div>
