@@ -40,7 +40,7 @@ export const LoaderPage = () => {
       int8Array[i] = byteString.charCodeAt(i);
     }
     const blob = new Blob([int8Array], { type: "application/pdf" });
-    console.log(blob);
+    // console.log(blob);
     return blob;
   };
 
@@ -95,7 +95,7 @@ export const LoaderPage = () => {
           onClick={() => {
             const blob = openPDFJs();
             const url = URL.createObjectURL(blob);
-            window.open(url, "_blank");
+            console.log(window.open(url, "_blank"));
           }}
         >
           Open PDF.JS
