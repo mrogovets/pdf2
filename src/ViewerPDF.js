@@ -45,7 +45,8 @@ export const ViewerPDF = ({ pathPDF }) => {
               alert("password incorrect");
               return;
             }
-          }}>
+          }}
+        >
           <Page pageNumber={pageNumber} />
         </Document>
         <div className="pagenation-pdf">
@@ -58,7 +59,8 @@ export const ViewerPDF = ({ pathPDF }) => {
             variant="contained"
             color="primary"
             disabled={pageNumber <= 1}
-            onClick={previousPage}>
+            onClick={previousPage}
+          >
             PrevPage
           </Button>
 
@@ -67,7 +69,8 @@ export const ViewerPDF = ({ pathPDF }) => {
             variant="contained"
             color="primary"
             disabled={pageNumber >= numPages}
-            onClick={nextPage}>
+            onClick={nextPage}
+          >
             NextPage
           </Button>
         </div>

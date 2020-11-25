@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import { openPDF } from "./openPDF";
 import { base64string } from "./pdf.js";

@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import { ViewerPDF } from "./ViewerPDF";
 import { Divider } from "@material-ui/core";
 
+import { base64string } from "./pdf.js";
+
 export const LoaderPage = () => {
   const [pathPDF, setPathPDF] = useState(null);
   const [selectedFilePdf, setSelectedFilePdf] = useState(null);
@@ -28,6 +30,18 @@ export const LoaderPage = () => {
       setPathPDF(output.src);
     } else return;
     setSelectedFilePdf(event.target.files[0]);
+  };
+
+  const openPDFJs = () => {
+    const byteString = window.atob(base64string);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: "application/pdf" });
+    console.log(blob);
+    return blob;
   };
 
   return (
@@ -55,18 +69,37 @@ export const LoaderPage = () => {
             href={pathPDF}
             without="true"
             rel="noopener noreferrer"
-            style={{ textDecoration: "none", marginLeft: "10px" }}
-            target="_blank">
+            style={{
+              textDecoration: "none",
+              marginLeft: "10px",
+              marginRight: "10px",
+            }}
+            target="_blank"
+          >
             <Button
               variant="contained"
               color="primary"
               component="span"
-              label="Resume">
+              label="Resume"
+            >
               Open PDF File in NewTab
             </Button>
           </a>
         ) : null}
 
+        {/* ---------------------------------------- */}
+        <Button
+          variant="contained"
+          color="primary"
+          component="span"
+          onClick={() => {
+            const blob = openPDFJs();
+            const url = URL.createObjectURL(blob);
+            window.open(url, "_blank");
+          }}
+        >
+          Open PDF.JS
+        </Button>
         {/* ---------------------------------------- */}
         <div>
           <ViewerPDF pathPDF={pathPDF} />
